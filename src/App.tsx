@@ -348,30 +348,68 @@ export default function App() {
       }
 
       if (!res.ok || !json || !json.success || !json.data) {
-        const errorMsg =
-          json?.error ||
-          (lang === 'ur'
+        let serverErrorMsg = '';
+        if (typeof json?.error === 'string') {
+          serverErrorMsg = json.error;
+        } else if (json?.error && typeof json.error === 'object') {
+          serverErrorMsg = json.error.message || json.error.msg || JSON.stringify(json.error);
+        } else if (typeof json?.msg === 'string') {
+          serverErrorMsg = json.msg;
+        }
+
+        const fallbackMsg =
+          lang === 'ur'
             ? 'کچھ غلط ہو گیا، براہ کرم دوبارہ کوشش کریں یا لنک چیک کریں۔'
-            : 'Something went wrong, please try again. Please verify the TikTok link.');
-        throw new Error(errorMsg);
+            : 'Something went wrong, please try again. Please verify the TikTok link.';
+
+        throw new Error(serverErrorMsg || fallbackMsg);
       }
 
       setVideoData(json.data);
       // Smooth scroll to result
       window.scrollTo({ top: 380, behavior: 'smooth' });
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Download error:', err);
-      // Ensure user-friendly message is shown instead of raw token / syntax errors
-      const isSyntaxOrTokenError =
-        err?.message?.includes('JSON') ||
-        err?.message?.includes('Unexpected token') ||
-        err?.message?.includes('is not valid JSON');
 
-      const friendlyMessage = isSyntaxOrTokenError
-        ? (lang === 'ur' ? 'کچھ غلط ہو گیا، براہ کرم دوبارہ کوشش کریں۔' : 'Something went wrong, please try again.')
-        : (err.message || (lang === 'ur' ? 'کچھ غلط ہو گیا، براہ کرم دوبارہ کوشش کریں۔' : 'Something went wrong, please try again.'));
+      // Extract readable message string safely
+      let extractedMessage = '';
+      if (err instanceof Error) {
+        extractedMessage = err.message;
+      } else if (typeof err === 'string') {
+        extractedMessage = err;
+      } else if (err && typeof err === 'object') {
+        if ('message' in err && typeof (err as any).message === 'string') {
+          extractedMessage = (err as any).message;
+        } else if ('error' in err && typeof (err as any).error === 'string') {
+          extractedMessage = (err as any).error;
+        } else if ('msg' in err && typeof (err as any).msg === 'string') {
+          extractedMessage = (err as any).msg;
+        } else {
+          try {
+            extractedMessage = JSON.stringify(err);
+          } catch {
+            extractedMessage = String(err);
+          }
+        }
+      } else {
+        extractedMessage = String(err);
+      }
 
-      setError(friendlyMessage);
+      // Ensure no raw [object Object] or JSON syntax error is shown to user
+      const isObjectStringOrSyntax =
+        !extractedMessage ||
+        extractedMessage === '[object Object]' ||
+        extractedMessage.includes('[object Object]') ||
+        extractedMessage.includes('Unexpected token') ||
+        extractedMessage.includes('is not valid JSON');
+
+      const userFriendlyMessage = isObjectStringOrSyntax
+        ? (lang === 'ur'
+            ? 'کچھ غلط ہو گیا، براہ کرم دوبارہ کوشش کریں۔'
+            : 'Something went wrong, please check the link and try again.')
+        : extractedMessage;
+
+      setError(userFriendlyMessage);
     } finally {
       setIsLoading(false);
     }

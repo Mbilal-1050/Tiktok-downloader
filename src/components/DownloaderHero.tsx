@@ -220,7 +220,15 @@ export const DownloaderHero: React.FC<DownloaderHeroProps> = ({
         {error && (
           <div className="mt-4 p-3.5 rounded-xl bg-rose-950/40 border border-rose-800/80 text-rose-300 text-xs sm:text-sm flex items-center justify-center gap-2 text-left">
             <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
-            <span>{error}</span>
+            <span>
+              {typeof error === 'string'
+                ? error
+                : error instanceof Error
+                ? error.message
+                : typeof error === 'object' && error !== null && 'message' in error
+                ? String((error as any).message)
+                : String(error)}
+            </span>
           </div>
         )}
 
