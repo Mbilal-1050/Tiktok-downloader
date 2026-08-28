@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #404040;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 25px -5px rgba(244, 63, 94, 0.4), 0 0 25px -5px rgba(6, 182, 212, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px -5px rgba(244, 63, 94, 0.6), 0 0 40px -5px rgba(6, 182, 212, 0.6);
+  }
+}
+
+.tiktok-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+.tiktok-gradient-text {
+  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 25%, #ff0844 75%, #ffb199 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
