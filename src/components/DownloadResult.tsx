@@ -167,7 +167,7 @@ export const DownloadResult: React.FC<DownloadResultProps> = ({
       setLoadingAi(true);
       const res = await fetch('/api/ai-analyze', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
           title: video.title,
           author: video.author?.nickname,
@@ -175,8 +175,16 @@ export const DownloadResult: React.FC<DownloadResultProps> = ({
           likes: video.stats?.likes,
         }),
       });
-      const json = await res.json();
-      if (json.success && json.insight) {
+      const contentType = res.headers.get('content-type') || '';
+      let json: any = null;
+      if (contentType.includes('application/json')) {
+        try {
+          json = await res.json();
+        } catch {
+          json = null;
+        }
+      }
+      if (json && json.success && json.insight) {
         setAiInsight(json.insight);
       }
     } catch (e) {

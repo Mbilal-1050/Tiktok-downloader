@@ -303,10 +303,15 @@ export default function App() {
     }
   };
 
-  // Perform TikTok Video Fetch
+  // Perform TikTok Video Fetch with robust JSON error handling
   const handleDownload = async (customUrl?: string) => {
-    const targetUrl = customUrl || url;
-    if (!targetUrl || !targetUrl.trim()) return;
+    const rawTarget = customUrl !== undefined ? customUrl : url;
+    const targetUrl = (rawTarget || '').trim();
+    if (!targetUrl) return;
+
+    if (customUrl) {
+      setUrl(customUrl);
+    }
 
     setIsLoading(true);
     setError(null);
@@ -317,16 +322,38 @@ export default function App() {
     }
 
     try {
+      // Use relative API path /api/download
       const res = await fetch('/api/download', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
         body: JSON.stringify({ url: targetUrl }),
       });
 
-      const json = await res.json();
+      const contentType = res.headers.get('content-type') || '';
+      let json: any = null;
 
-      if (!res.ok || !json.success || !json.data) {
-        throw new Error(json.error || 'Failed to fetch video details. Please check the URL.');
+      if (contentType.includes('application/json')) {
+        try {
+          json = await res.json();
+        } catch {
+          json = null;
+        }
+      } else {
+        // If server returned non-JSON (e.g. HTML 404/500/502 error page), avoid raw SyntaxError
+        const text = await res.text().catch(() => '');
+        console.warn('Received non-JSON response from /api/download:', res.status, text.slice(0, 80));
+      }
+
+      if (!res.ok || !json || !json.success || !json.data) {
+        const errorMsg =
+          json?.error ||
+          (lang === 'ur'
+            ? 'کچھ غلط ہو گیا، براہ کرم دوبارہ کوشش کریں یا لنک چیک کریں۔'
+            : 'Something went wrong, please try again. Please verify the TikTok link.');
+        throw new Error(errorMsg);
       }
 
       setVideoData(json.data);
@@ -334,11 +361,44 @@ export default function App() {
       window.scrollTo({ top: 380, behavior: 'smooth' });
     } catch (err: any) {
       console.error('Download error:', err);
-      setError(err.message || 'Could not parse TikTok link. Please make sure the video is public.');
+      // Ensure user-friendly message is shown instead of raw token / syntax errors
+      const isSyntaxOrTokenError =
+        err?.message?.includes('JSON') ||
+        err?.message?.includes('Unexpected token') ||
+        err?.message?.includes('is not valid JSON');
+
+      const friendlyMessage = isSyntaxOrTokenError
+        ? (lang === 'ur' ? 'کچھ غلط ہو گیا، براہ کرم دوبارہ کوشش کریں۔' : 'Something went wrong, please try again.')
+        : (err.message || (lang === 'ur' ? 'کچھ غلط ہو گیا، براہ کرم دوبارہ کوشش کریں۔' : 'Something went wrong, please try again.'));
+
+      setError(friendlyMessage);
     } finally {
       setIsLoading(false);
     }
   };
+
+  // Window-level global paste listener for seamless automatic fetching on paste
+  useEffect(() => {
+    const handleGlobalPaste = (e: ClipboardEvent) => {
+      // If user is typing in a textarea or input other than the search box, ignore
+      const activeEl = document.activeElement;
+      if (activeEl && (activeEl.tagName === 'TEXTAREA' || (activeEl.tagName === 'INPUT' && activeEl.id !== 'tiktok-url-input'))) {
+        return;
+      }
+
+      const pastedText = e.clipboardData?.getData('text');
+      if (pastedText) {
+        const trimmed = pastedText.trim();
+        if (/(?:https?:\/\/)?(?:vm\.|vt\.|www\.|v\.)?tiktok\.com\/[a-zA-Z0-9_@&/?=-]+/i.test(trimmed) || trimmed.startsWith('http')) {
+          setUrl(trimmed);
+          handleDownload(trimmed);
+        }
+      }
+    };
+
+    window.addEventListener('paste', handleGlobalPaste);
+    return () => window.removeEventListener('paste', handleGlobalPaste);
+  }, [currentView, lang]);
 
   // Sample quick select
   const handleSelectSample = (sampleKey: string) => {
@@ -397,7 +457,7 @@ export default function App() {
             <DownloaderHero
               url={url}
               setUrl={setUrl}
-              onDownload={() => handleDownload()}
+              onDownload={(targetUrl) => handleDownload(targetUrl)}
               isLoading={isLoading}
               error={error}
               lang={lang}

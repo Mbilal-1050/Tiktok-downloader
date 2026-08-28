@@ -40,14 +40,22 @@ export const BatchDownloaderModal: React.FC<BatchDownloaderModalProps> = ({
       try {
         const res = await fetch('/api/download', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({ url: lineUrl }),
         });
-        const data = await res.json();
-        if (data.success && data.data) {
+        const contentType = res.headers.get('content-type') || '';
+        let data: any = null;
+        if (contentType.includes('application/json')) {
+          try {
+            data = await res.json();
+          } catch {
+            data = null;
+          }
+        }
+        if (data && data.success && data.data) {
           results.push(data.data);
         } else {
-          errorList.push(`Failed for: ${lineUrl.slice(0, 30)}...`);
+          errorList.push(`Could not resolve: ${lineUrl.slice(0, 30)}...`);
         }
       } catch (err: any) {
         errorList.push(`Error fetching: ${lineUrl.slice(0, 30)}...`);
