@@ -40,6 +40,12 @@ export default function App() {
 
   // Page Routing (home, privacy, terms, dmca, about, contact)
   const [currentView, setCurrentView] = useState<string>(() => {
+    // 1. Check pathname first (e.g., /about, /privacy)
+    const path = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+    if (['privacy', 'terms', 'dmca', 'about', 'contact'].includes(path)) {
+      return path;
+    }
+    // 2. Check hash fallback for legacy links (e.g., #about)
     const hash = window.location.hash.replace('#', '').toLowerCase();
     if (['privacy', 'terms', 'dmca', 'about', 'contact'].includes(hash)) {
       return hash;
@@ -47,20 +53,31 @@ export default function App() {
     return 'home';
   });
 
-  // Listen to hash changes for direct linking & browser back/forward buttons
+  // Listen to browser back/forward buttons (popstate) & hash changes
   useEffect(() => {
-    const handleHashChange = () => {
+    const handleLocationChange = () => {
+      const path = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+      if (['privacy', 'terms', 'dmca', 'about', 'contact'].includes(path)) {
+        setCurrentView(path);
+        return;
+      }
       const hash = window.location.hash.replace('#', '').toLowerCase();
       if (['privacy', 'terms', 'dmca', 'about', 'contact'].includes(hash)) {
         setCurrentView(hash);
-      } else {
-        setCurrentView('home');
+        // Normalize hash URL to clean path without hash
+        window.history.replaceState({ view: hash }, '', `/${hash}`);
+        return;
       }
+      setCurrentView('home');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('hashchange', handleLocationChange);
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('hashchange', handleLocationChange);
+    };
   }, []);
 
   // Update Page Title, Meta Description, Open Graph and Structured Data on route change
@@ -114,6 +131,21 @@ export default function App() {
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) metaDesc.setAttribute('content', descText);
 
+    // Update Absolute Canonical & Open Graph URLs
+    const canonicalUrl = currentView === 'home'
+      ? 'https://tikdownloadpro.online/'
+      : `https://tikdownloadpro.online/${currentView}`;
+
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) {
+      canonical.setAttribute('href', canonicalUrl);
+    }
+
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) {
+      ogUrl.setAttribute('content', canonicalUrl);
+    }
+
     // Update OG tags
     const ogTitle = document.querySelector('meta[property="og:title"]');
     if (ogTitle) ogTitle.setAttribute('content', titleText);
@@ -127,12 +159,6 @@ export default function App() {
 
     const twDesc = document.querySelector('meta[name="twitter:description"]');
     if (twDesc) twDesc.setAttribute('content', descText);
-
-    // Update Canonical
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute('href', currentView === 'home' ? './' : `#${currentView}`);
-    }
 
     // Structured Data (JSON-LD)
     const existingScript = document.getElementById('json-ld-schema');
@@ -219,10 +245,9 @@ export default function App() {
 
   const navigateTo = (view: string) => {
     setCurrentView(view);
-    if (view === 'home') {
-      window.location.hash = '';
-    } else {
-      window.location.hash = view;
+    const newPath = view === 'home' ? '/' : `/${view}`;
+    if (window.location.pathname !== newPath || window.location.hash) {
+      window.history.pushState({ view }, '', newPath);
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };

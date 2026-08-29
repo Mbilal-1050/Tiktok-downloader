@@ -69,49 +69,69 @@ export const Footer: React.FC<FooterProps> = ({ lang, onNavigate, onOpenSecretAd
           </ul>
         </div>
 
-        {/* Col 3: Legal & Compliance Pages (Crucial for AdSense) */}
+        {/* Col 3: Legal & Compliance Pages (Crucial for AdSense & Indexing) */}
         <div className="space-y-3">
           <h4 className="text-xs font-bold uppercase tracking-wider text-white">Legal & Compliance</h4>
           <ul className="space-y-2 text-neutral-400 text-xs">
             <li>
-              <button
-                onClick={() => onNavigate('privacy')}
+              <a
+                href="/privacy"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate('privacy');
+                }}
                 className="hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
               >
                 <span>Privacy Policy (GDPR / CCPA)</span>
-              </button>
+              </a>
             </li>
             <li>
-              <button
-                onClick={() => onNavigate('terms')}
+              <a
+                href="/terms"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate('terms');
+                }}
                 className="hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
               >
                 <span>Terms of Service</span>
-              </button>
+              </a>
             </li>
             <li>
-              <button
-                onClick={() => onNavigate('dmca')}
+              <a
+                href="/dmca"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate('dmca');
+                }}
                 className="hover:text-rose-400 transition-colors flex items-center gap-1.5 cursor-pointer"
               >
                 <span>DMCA & Copyright Takedown</span>
-              </button>
+              </a>
             </li>
             <li>
-              <button
-                onClick={() => onNavigate('about')}
+              <a
+                href="/about"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate('about');
+                }}
                 className="hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
               >
                 <span>About Us & Technology</span>
-              </button>
+              </a>
             </li>
             <li>
-              <button
-                onClick={() => onNavigate('contact')}
+              <a
+                href="/contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate('contact');
+                }}
                 className="hover:text-cyan-400 transition-colors flex items-center gap-1.5 cursor-pointer"
               >
                 <span>Contact & Support 24/7</span>
-              </button>
+              </a>
             </li>
           </ul>
         </div>
@@ -145,21 +165,49 @@ export const Footer: React.FC<FooterProps> = ({ lang, onNavigate, onOpenSecretAd
           )}
         </p>
         <div className="flex items-center gap-4">
-          <button onClick={() => onNavigate('privacy')} className="hover:text-neutral-400">
+          <a
+            href="/privacy"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigate('privacy');
+            }}
+            className="hover:text-neutral-400"
+          >
             Privacy
-          </button>
+          </a>
           <span>&bull;</span>
-          <button onClick={() => onNavigate('terms')} className="hover:text-neutral-400">
+          <a
+            href="/terms"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigate('terms');
+            }}
+            className="hover:text-neutral-400"
+          >
             Terms
-          </button>
+          </a>
           <span>&bull;</span>
-          <button onClick={() => onNavigate('dmca')} className="hover:text-neutral-400">
+          <a
+            href="/dmca"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigate('dmca');
+            }}
+            className="hover:text-neutral-400"
+          >
             DMCA
-          </button>
+          </a>
           <span>&bull;</span>
-          <button onClick={() => onNavigate('contact')} className="hover:text-neutral-400">
+          <a
+            href="/contact"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigate('contact');
+            }}
+            className="hover:text-neutral-400"
+          >
             Contact
-          </button>
+          </a>
         </div>
       </div>
     </footer>

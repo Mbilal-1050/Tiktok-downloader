@@ -52,13 +52,17 @@ export const Header: React.FC<HeaderProps> = ({
           
           {/* Home / Downloader Link (if on another page) */}
           {currentView !== 'home' && (
-            <button
-              onClick={() => onNavigate('home')}
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigate('home');
+              }}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-rose-400 bg-rose-950/40 hover:bg-rose-900/40 border border-rose-800/60 transition-colors cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
               <span>{lang === 'ur' ? 'ڈاؤنلوڈر' : 'Downloader'}</span>
-            </button>
+            </a>
           )}
 
           {/* Trending Button */}
@@ -82,8 +86,12 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
 
           {/* About Link */}
-          <button
-            onClick={() => onNavigate('about')}
+          <a
+            href="/about"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigate('about');
+            }}
             className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors cursor-pointer ${
               currentView === 'about'
                 ? 'text-cyan-400 bg-cyan-950/50 border-cyan-800/60'
@@ -93,11 +101,15 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <Info className="w-3.5 h-3.5 text-neutral-400" />
             <span>{lang === 'ur' ? 'ہمارے بارے میں' : 'About'}</span>
-          </button>
+          </a>
 
           {/* Contact Link */}
-          <button
-            onClick={() => onNavigate('contact')}
+          <a
+            href="/contact"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigate('contact');
+            }}
             className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors cursor-pointer ${
               currentView === 'contact'
                 ? 'text-cyan-400 bg-cyan-950/50 border-cyan-800/60'
@@ -107,7 +119,7 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <Mail className="w-3.5 h-3.5 text-neutral-400" />
             <span>{lang === 'ur' ? 'رابطہ' : 'Contact'}</span>
-          </button>
+          </a>
 
           {/* Language Toggle */}
           <button
