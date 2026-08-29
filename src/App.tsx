@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { Header } from './components/Header';
 import { DownloaderHero } from './components/DownloaderHero';
 import { DownloadResult } from './components/DownloadResult';
@@ -385,7 +386,7 @@ export default function App() {
 
         const fallbackMsg =
           lang === 'ur'
-            ? 'کچھ غلط ہو گیا، براہ کرم دوبارہ کوشش کریں یا لنک چیک کریں۔'
+            ? 'ک��ھ غلط ہو گیا، براہ کرم دوبارہ کوشش کریں یا لنک چیک کریں۔'
             : 'Something went wrong, please try again. Please verify the TikTok link.';
 
         throw new Error(serverErrorMsg || fallbackMsg);
@@ -660,6 +661,8 @@ export default function App() {
         lang={lang}
       />
 
+      {/* Vercel Web Analytics */}
+      <Analytics />
     </div>
   );
 }
