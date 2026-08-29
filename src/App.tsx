@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { DownloaderHero } from './components/DownloaderHero';
 import { DownloadResult } from './components/DownloadResult';
-import { AdBanner } from './components/AdBanner';
+import { AdsterraBanner } from './components/AdsterraBanner';
 import { HowToUse } from './components/HowToUse';
 import { FeaturesShowcase } from './components/FeaturesShowcase';
 import { FaqSection } from './components/FaqSection';
@@ -457,8 +457,8 @@ export default function App() {
         setLang={setLang}
       />
 
-      {/* Top Banner Ad Leaderboard (Earnings for Site Owner) */}
-      <AdBanner type="top_leaderboard" settings={adSettings} className="mt-2" />
+      {/* Real Adsterra 728x90 Banner Slot (Top Leaderboard) */}
+      <AdsterraBanner id="adsterra-banner-top" className="mt-2" />
 
       {/* Main Content Area */}
       <main className="flex-1">
@@ -574,13 +574,13 @@ export default function App() {
 
             {/* FAQ Section */}
             <FaqSection lang={lang} />
+
+            {/* Real Adsterra 728x90 Banner Slot (Footer Placement above footer links) */}
+            <AdsterraBanner id="adsterra-banner-footer" className="my-6" />
           </>
         )}
 
       </main>
-
-      {/* Sticky Bottom Floating Banner Ad */}
-      <AdBanner type="sticky_bottom" settings={adSettings} />
 
       {/* Footer with Dedicated Legal & Support Page Navigation */}
       <Footer

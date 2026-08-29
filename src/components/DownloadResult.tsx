@@ -23,7 +23,6 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { TikTokVideoData, AdSettings, ViralInsight } from '../types';
-import { AdBanner } from './AdBanner';
 
 interface DownloadResultProps {
   video: TikTokVideoData;
