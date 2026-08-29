@@ -109,17 +109,17 @@ export const DownloaderHero: React.FC<DownloaderHeroProps> = ({
         </span>
       </div>
 
-      {/* Hero Headline (Main H1 for the page) */}
+      {/* Hero Headline (Main H1 for the page - contains primary target keyword 'TikTok Video Downloader') */}
       <h1 className="text-3xl sm:text-5xl lg:text-6xl font-display font-extrabold tracking-tight text-white mb-4 leading-tight">
         {lang === 'ur' ? (
           <>
-            ٹک ٹاک ویڈیوز ڈاؤنلوڈر <br />
-            <span className="tiktok-gradient-text">بغیر واٹر مارک فل ایچ ڈی</span>
+            ٹک ٹاک ویڈیو ڈاؤنلوڈر <br />
+            <span className="tiktok-gradient-text">TikTok Video Downloader بغیر واٹر مارک</span>
           </>
         ) : (
           <>
-            Download TikTok Videos <br />
-            <span className="tiktok-gradient-text">Without Watermark (HD)</span>
+            TikTok Video Downloader <br />
+            <span className="tiktok-gradient-text">Without Watermark (Full HD)</span>
           </>
         )}
       </h1>

@@ -1,5 +1,5 @@
 {
-  "name": "TikSave Pro - TikTok Video Downloader",
+  "name": "TikDownload Pro - TikTok Video Downloader",
   "description": "Fast, free, and premium TikTok video downloader without watermark. Download HD MP4 videos, MP3 audio, and images instantly with no login required.",
   "requestFramePermissions": ["clipboard-read"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

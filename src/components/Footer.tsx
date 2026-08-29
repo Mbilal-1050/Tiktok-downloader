@@ -19,7 +19,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, onNavigate, onOpenSecretAd
               <Download className="w-4 h-4" />
             </div>
             <span className="font-display font-extrabold text-lg text-white">
-              Tik<span className="text-rose-500">Save</span> PRO
+              Tik<span className="text-rose-500">Download</span> PRO
             </span>
           </div>
           <p className="text-xs text-neutral-400 leading-relaxed">
@@ -42,29 +42,64 @@ export const Footer: React.FC<FooterProps> = ({ lang, onNavigate, onOpenSecretAd
           <h4 className="text-xs font-bold uppercase tracking-wider text-white">Supported Formats</h4>
           <ul className="space-y-2 text-neutral-400 text-xs">
             <li>
-              <button onClick={() => onNavigate('home')} className="hover:text-rose-400 transition-colors">
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate('home');
+                }}
+                className="hover:text-rose-400 transition-colors"
+              >
                 • TikTok MP4 (No Watermark HD)
-              </button>
+              </a>
             </li>
             <li>
-              <button onClick={() => onNavigate('home')} className="hover:text-rose-400 transition-colors">
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate('home');
+                }}
+                className="hover:text-rose-400 transition-colors"
+              >
                 • TikTok MP4 (Full HD 1080p Ultra)
-              </button>
+              </a>
             </li>
             <li>
-              <button onClick={() => onNavigate('home')} className="hover:text-purple-400 transition-colors">
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate('home');
+                }}
+                className="hover:text-purple-400 transition-colors"
+              >
                 • TikTok MP3 Audio (320kbps Music)
-              </button>
+              </a>
             </li>
             <li>
-              <button onClick={() => onNavigate('home')} className="hover:text-cyan-400 transition-colors">
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate('home');
+                }}
+                className="hover:text-cyan-400 transition-colors"
+              >
                 • TikTok Photo Slideshow / Carousel
-              </button>
+              </a>
             </li>
             <li>
-              <button onClick={() => onNavigate('home')} className="hover:text-emerald-400 transition-colors">
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate('home');
+                }}
+                className="hover:text-emerald-400 transition-colors"
+              >
                 • High-Res Video Thumbnail (JPG)
-              </button>
+              </a>
             </li>
           </ul>
         </div>
@@ -140,7 +175,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, onNavigate, onOpenSecretAd
         <div className="space-y-3">
           <h4 className="text-xs font-bold uppercase tracking-wider text-white">Important Disclaimer</h4>
           <p className="text-[11px] text-neutral-500 leading-relaxed">
-            TikSave Pro is an independent web utility and is NOT affiliated, endorsed, associated, or sponsored by TikTok, Musical.ly, or ByteDance Ltd.
+            TikDownload Pro is an independent web utility and is NOT affiliated, endorsed, associated, or sponsored by TikTok, Musical.ly, or ByteDance Ltd.
           </p>
           <p className="text-[11px] text-neutral-500 leading-relaxed">
             All videos, audio clips, logos, and trademarks belong to their respective creators and copyright owners.
@@ -152,7 +187,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, onNavigate, onOpenSecretAd
       {/* Bottom Bar with subtle admin trigger */}
       <div className="max-w-7xl mx-auto pt-6 border-t border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-neutral-500">
         <p>
-          &copy; {new Date().getFullYear()} TikSave Pro. All rights reserved.{' '}
+          &copy; {new Date().getFullYear()} TikDownload Pro. All rights reserved.{' '}
           {/* Subtle secret trigger for website administrator only */}
           {onOpenSecretAdmin && (
             <button

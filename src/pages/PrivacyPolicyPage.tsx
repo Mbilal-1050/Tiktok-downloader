@@ -30,8 +30,8 @@ export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onBack, la
         </h1>
         <p className="text-sm sm:text-base text-neutral-400 leading-relaxed">
           {lang === 'ur'
-            ? 'TikSave Pro آپ کی پرائیویسی اور ڈیٹا کے تحفظ کو سب سے زیادہ اہمیت دیتا ہے۔ یہ پالیسی وضاحت کرتی ہے کہ ہماری ویب سائٹ آپ کے ڈیٹا کے ساتھ کیسے برتاؤ کرتی ہے۔'
-            : 'At TikSave Pro, accessible from our web platform, one of our main priorities is the privacy of our visitors. This Privacy Policy document outlines the types of information that is collected and recorded by TikSave Pro and how we use it.'}
+            ? 'TikDownload Pro آپ کی پرائیویسی اور ڈیٹا کے تحفظ کو سب سے زیادہ اہمیت دیتا ہے۔ یہ پالیسی وضاحت کرتی ہے کہ ہماری ویب سائٹ آپ کے ڈیٹا کے ساتھ کیسے برتاؤ کرتی ہے۔'
+            : 'At TikDownload Pro, accessible from our web platform, one of our main priorities is the privacy of our visitors. This Privacy Policy document outlines the types of information that is collected and recorded by TikDownload Pro and how we use it.'}
         </p>
       </div>
 
@@ -67,7 +67,7 @@ export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onBack, la
         <section className="space-y-3">
           <h2 className="text-xl font-bold text-white">1. Information We Collect</h2>
           <p>
-            TikSave Pro is designed to be an anonymous and frictionless web utility. When you use our service to download videos or audio:
+            TikDownload Pro is designed to be an anonymous and frictionless web utility. When you use our service to download videos or audio:
           </p>
           <ul className="list-disc list-inside space-y-1.5 text-neutral-400 pl-2">
             <li><strong className="text-neutral-200">Video URLs:</strong> We temporarily process the public TikTok URL you submit solely to parse media streams (video, thumbnail, audio). We do not correlate URLs with your personal identity.</li>
@@ -80,7 +80,7 @@ export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onBack, la
         <section className="space-y-3">
           <h2 className="text-xl font-bold text-white">2. Cookies and Web Beacons</h2>
           <p>
-            Like any other modern web application, TikSave Pro uses standard cookies to maintain session states and user preferences (such as preferred language and theme).
+            Like any other modern web application, TikDownload Pro uses standard cookies to maintain session states and user preferences (such as preferred language and theme).
           </p>
           <p>
             Third-party advertising partners and analytics networks (such as Google AdSense, DoubleClick, Adsterra, PropellerAds) may place non-personalized cookies on your device to serve relevant advertisements based on visits to this and other websites across the Internet.
@@ -94,12 +94,12 @@ export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onBack, la
         <section className="space-y-3">
           <h2 className="text-xl font-bold text-white">3. Third-Party Advertising & Monetization</h2>
           <p>
-            To keep our video downloading service 100% free and unlimited for creators and users worldwide, TikSave Pro displays third-party advertisements. These ad networks may automatically receive your IP address when ad units load.
+            To keep our video downloading service 100% free and unlimited for creators and users worldwide, TikDownload Pro displays third-party advertisements. These ad networks may automatically receive your IP address when ad units load.
           </p>
           <ul className="list-disc list-inside space-y-1.5 text-neutral-400 pl-2">
             <li>Google's use of advertising cookies enables it and its partners to serve ads to users based on their visits to our sites and/or other sites on the Internet.</li>
             <li>Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-rose-400 hover:underline">Google Ads Settings</a>.</li>
-            <li>TikSave Pro has no access to or control over these cookies that are used by third-party advertisers.</li>
+            <li>TikDownload Pro has no access to or control over these cookies that are used by third-party advertisers.</li>
           </ul>
         </section>
 
@@ -136,7 +136,7 @@ export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onBack, la
             Under the California Consumer Privacy Act (CCPA), California consumers have the right to request disclosure of categories and specific pieces of personal data collected, request deletion of personal data, and request that a business not sell their personal data.
           </p>
           <p className="text-emerald-400 font-medium">
-            TikSave Pro does not sell personal information to third parties under any circumstances.
+            TikDownload Pro does not sell personal information to third parties under any circumstances.
           </p>
         </section>
 
@@ -147,7 +147,7 @@ export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onBack, la
             Protecting children's privacy while using the internet is especially important. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity.
           </p>
           <p>
-            TikSave Pro does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you believe your child has provided this kind of information on our website, please contact us immediately.
+            TikDownload Pro does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you believe your child has provided this kind of information on our website, please contact us immediately.
           </p>
         </section>
 
@@ -158,7 +158,7 @@ export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onBack, la
             If you have additional questions or require more information about our Privacy Policy, do not hesitate to reach out via our contact page or email us at:
           </p>
           <div className="p-4 rounded-2xl bg-neutral-900 border border-neutral-800 flex items-center justify-between">
-            <span className="font-mono text-xs sm:text-sm text-cyan-400">privacy@tiksave.pro</span>
+            <span className="font-mono text-xs sm:text-sm text-cyan-400">privacy@tikdownloadpro.online</span>
             <span className="text-xs text-neutral-400">Response within 24-48 hours</span>
           </div>
         </section>

@@ -43,12 +43,12 @@ export const ContactUsPage: React.FC<ContactUsPageProps> = ({ onBack, lang }) =>
           <span>24/7 Creator & User Support Team</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-white mb-3">
-          {lang === 'ur' ? 'ہم سے رابطہ کریں (Contact Us)' : 'Contact TikSave Pro Support'}
+          {lang === 'ur' ? 'ہم سے رابطہ کریں (Contact Us)' : 'Contact TikDownload Pro Support'}
         </h1>
         <p className="text-sm sm:text-base text-neutral-400 leading-relaxed">
           {lang === 'ur'
             ? 'اگر آپ کا کوئی سوال، تجویز، کاروباری پیشکش، یا ڈی ایم سی اے نوٹس ہے تو براہِ کرم نیچے دیے گئے فارم کے ذریعے ہماری ٹیم سے رابطہ کریں۔'
-            : 'Have a question, feedback, technical bug report, or business inquiry? We are here to help you get the best experience from TikSave Pro.'}
+            : 'Have a question, feedback, technical bug report, or business inquiry? We are here to help you get the best experience from TikDownload Pro.'}
         </p>
       </div>
 
@@ -64,7 +64,7 @@ export const ContactUsPage: React.FC<ContactUsPageProps> = ({ onBack, lang }) =>
               </div>
               <div>
                 <h4 className="text-xs font-bold text-neutral-400 uppercase tracking-wider">Direct Email Support</h4>
-                <p className="text-sm font-bold text-white font-mono">support@tiksave.pro</p>
+                <p className="text-sm font-bold text-white font-mono">support@tikdownloadpro.online</p>
               </div>
             </div>
             <p className="text-xs text-neutral-400 mt-2">
@@ -79,7 +79,7 @@ export const ContactUsPage: React.FC<ContactUsPageProps> = ({ onBack, lang }) =>
               </div>
               <div>
                 <h4 className="text-xs font-bold text-neutral-400 uppercase tracking-wider">DMCA & Legal Department</h4>
-                <p className="text-sm font-bold text-white font-mono">dmca@tiksave.pro</p>
+                <p className="text-sm font-bold text-white font-mono">dmca@tikdownloadpro.online</p>
               </div>
             </div>
             <p className="text-xs text-neutral-400 mt-2">
@@ -113,7 +113,7 @@ export const ContactUsPage: React.FC<ContactUsPageProps> = ({ onBack, lang }) =>
                 <CheckCircle2 className="w-14 h-14 text-emerald-400 mx-auto animate-bounce" />
                 <h3 className="text-xl font-bold text-white font-display">Message Sent Successfully!</h3>
                 <p className="text-xs sm:text-sm text-neutral-300 max-w-md mx-auto leading-relaxed">
-                  Thank you for reaching out to TikSave Pro. Your inquiry has been received by our support team and we will get back to you shortly at <strong className="text-cyan-400">{formData.email}</strong>.
+                  Thank you for reaching out to TikDownload Pro. Your inquiry has been received by our support team and we will get back to you shortly at <strong className="text-cyan-400">{formData.email}</strong>.
                 </p>
                 <button
                   onClick={() => {

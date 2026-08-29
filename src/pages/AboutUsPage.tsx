@@ -23,15 +23,15 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({ onBack, lang }) => {
       <div className="mb-10 text-left border-b border-neutral-800 pb-8">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/60 border border-purple-800/80 text-purple-400 text-xs font-bold mb-4">
           <Info className="w-3.5 h-3.5" />
-          <span>About TikSave Pro &bull; Next-Gen Media Downloader</span>
+          <span>About TikDownload Pro &bull; Next-Gen Media Downloader</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-white mb-3">
-          {lang === 'ur' ? 'ہمارے بارے میں (About Us)' : 'About TikSave Pro'}
+          {lang === 'ur' ? 'ہمارے بارے میں (About Us)' : 'About TikDownload Pro'}
         </h1>
         <p className="text-sm sm:text-base text-neutral-400 leading-relaxed">
           {lang === 'ur'
-            ? 'TikSave Pro دنیا بھر کے کروڑوں صارفین اور مواد تخلیق کاروں کے لیے بغیر واٹر مارک ٹک ٹاک ویڈیوز اور آڈیو ڈاؤنلوڈ کرنے کا سب سے تیز اور محفوظ ترین پلیٹ فارم ہے۔'
-            : 'TikSave Pro is an ultra-fast, high-performance web platform designed to help content creators, video editors, researchers, and everyday fans save and backup TikTok videos in crisp 1080p Full HD without watermarks.'}
+            ? 'TikDownload Pro دنیا بھر کے کروڑوں صارفین اور مواد تخلیق کاروں کے لیے بغیر واٹر مارک ٹک ٹاک ویڈیوز اور آڈیو ڈاؤنلوڈ کرنے کا سب سے تیز اور محفوظ ترین پلیٹ فارم ہے۔'
+            : 'TikDownload Pro is an ultra-fast, high-performance web platform designed to help content creators, video editors, researchers, and everyday fans save and backup TikTok videos in crisp 1080p Full HD without watermarks.'}
         </p>
       </div>
 
@@ -81,7 +81,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({ onBack, lang }) => {
             </div>
             <h3 className="text-base font-bold text-white mb-1">Cross-Device Compatibility</h3>
             <p className="text-xs text-neutral-400 leading-relaxed">
-              Whether you are on iOS Safari (iPhone/iPad), Android Chrome, Windows PC, Mac, or Linux, TikSave Pro works natively in any modern web browser.
+              Whether you are on iOS Safari (iPhone/iPad), Android Chrome, Windows PC, Mac, or Linux, TikDownload Pro works natively in any modern web browser.
             </p>
           </div>
 
@@ -101,7 +101,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({ onBack, lang }) => {
         <section className="space-y-3 border-t border-neutral-800 pt-6">
           <h2 className="text-xl font-bold text-white">How Our Technology Works</h2>
           <p>
-            When you enter a public TikTok URL into TikSave Pro, our backend service contacts TikTok's public endpoints to locate the raw, uncompressed source video file without the dynamic watermark layer attached by client applications. The media stream is then forwarded directly to your device via high-speed browser download streams.
+            When you enter a public TikTok URL into TikDownload Pro, our backend service contacts TikTok's public endpoints to locate the raw, uncompressed source video file without the dynamic watermark layer attached by client applications. The media stream is then forwarded directly to your device via high-speed browser download streams.
           </p>
         </section>
 
@@ -109,7 +109,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({ onBack, lang }) => {
         <section className="space-y-3 border-t border-neutral-800 pt-6">
           <h2 className="text-lg font-bold text-neutral-200">Independent Operation Disclaimer</h2>
           <p className="text-xs text-neutral-400">
-            TikSave Pro is an independent media utility and is not affiliated, endorsed, sponsored, or associated with TikTok, ByteDance Ltd., or any of their respective subsidiaries or affiliates.
+            TikDownload Pro is an independent media utility and is not affiliated, endorsed, sponsored, or associated with TikTok, ByteDance Ltd., or any of their respective subsidiaries or affiliates.
           </p>
         </section>
 

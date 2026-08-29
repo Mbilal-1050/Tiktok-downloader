@@ -155,7 +155,7 @@ export const BatchDownloaderModal: React.FC<BatchDownloaderModalProps> = ({
                   <div className="flex items-center gap-3 min-w-0">
                     <img
                       src={item.cover}
-                      alt={item.title}
+                      alt={item.title ? `Thumbnail preview for ${item.title}` : 'TikTok video batch download thumbnail'}
                       referrerPolicy="no-referrer"
                       className="w-10 h-10 rounded-lg object-cover shrink-0"
                     />

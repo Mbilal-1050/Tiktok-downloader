@@ -61,7 +61,7 @@ export const FeaturesShowcase: React.FC<FeaturesShowcaseProps> = ({ lang }) => {
     <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
       <div className="text-center mb-10">
         <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-white mb-2">
-          {lang === 'ur' ? 'TikSave Pro کی بہترین خصوصیات' : 'Why Millions Choose TikSave Pro'}
+          {lang === 'ur' ? 'TikDownload Pro کی بہترین خصوصیات' : 'Why Millions Choose TikDownload Pro'}
         </h2>
         <p className="text-xs sm:text-sm text-neutral-400 max-w-xl mx-auto">
           {lang === 'ur'

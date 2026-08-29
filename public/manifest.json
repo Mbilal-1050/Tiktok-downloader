@@ -1,6 +1,6 @@
 {
-  "name": "TikSave Pro - TikTok Video Downloader",
-  "short_name": "TikSave Pro",
+  "name": "TikDownload Pro - TikTok Video Downloader",
+  "short_name": "TikDownload Pro",
   "description": "Download TikTok videos without watermark in Full HD MP4 and MP3 audio instantly.",
   "start_url": "/",
   "display": "standalone",

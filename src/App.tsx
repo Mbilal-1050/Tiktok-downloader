@@ -6,6 +6,7 @@ import { AdsterraBanner } from './components/AdsterraBanner';
 import { HowToUse } from './components/HowToUse';
 import { FeaturesShowcase } from './components/FeaturesShowcase';
 import { FaqSection } from './components/FaqSection';
+import { SeoContentSection } from './components/SeoContentSection';
 import { Footer } from './components/Footer';
 import { AdSettingsModal } from './components/AdSettingsModal';
 import { BatchDownloaderModal } from './components/BatchDownloaderModal';
@@ -84,40 +85,40 @@ export default function App() {
   useEffect(() => {
     const titles: Record<string, { en: string; ur: string; descEn: string; descUr: string }> = {
       home: {
-        en: 'TikSave Pro - TikTok Video Downloader (No Watermark HD)',
-        ur: 'ٹک سیو پرو - بغیر واٹر مارک ٹک ٹاک ویڈیو ڈاؤنلوڈر',
+        en: 'TikDownload Pro - TikTok Video Downloader (No Watermark HD)',
+        ur: 'ٹک ڈاؤنلوڈ پرو - بغیر واٹر مارک ٹک ٹاک ویڈیو ڈاؤنلوڈر',
         descEn: 'Download TikTok videos without watermark in crisp 1080p Full HD MP4 and MP3 audio instantly. 100% free with no login required.',
         descUr: 'بغیر واٹر مارک ٹک ٹاک ویڈیوز اور ایم پی تھری آڈیو فل ایچ ڈی میں ڈاؤنلوڈ کریں۔ تیز رفتار اور بالکل مفت۔',
       },
       about: {
-        en: 'About TikSave Pro - High Speed TikTok Video Downloader',
-        ur: 'ہمارے بارے میں - ٹک سیو پرو',
-        descEn: 'Learn more about TikSave Pro, the leading fast and free media downloader for TikTok content creators and digital editors.',
-        descUr: 'ٹک سیو پرو کے بارے میں جانیے، دنیا کا تیز ترین ٹک ٹاک ڈاؤنلوڈر۔',
+        en: 'About TikDownload Pro - High Speed TikTok Video Downloader',
+        ur: 'ہمارے بارے میں - ٹک ڈاؤنلوڈ پرو',
+        descEn: 'Learn more about TikDownload Pro, the leading fast and free media downloader for TikTok content creators and digital editors.',
+        descUr: 'ٹک ڈاؤنلوڈ پرو کے بارے میں جانیے، دنیا کا تیز ترین ٹک ٹاک ڈاؤنلوڈر۔',
       },
       contact: {
-        en: 'Contact Us - TikSave Pro Support & Inquiries',
-        ur: 'ہم سے رابطہ کریں - ٹک سیو پرو',
-        descEn: 'Get in touch with the TikSave Pro support team for general inquiries, feedback, DMCA notices, and creator assistance.',
-        descUr: 'ٹک سیو پرو کی کسٹمر سپورٹ ٹیم سے فوری رابطہ کریں۔',
+        en: 'Contact Us - TikDownload Pro Support & Inquiries',
+        ur: 'ہم سے رابطہ کریں - ٹک ڈاؤنلوڈ پرو',
+        descEn: 'Get in touch with the TikDownload Pro support team for general inquiries, feedback, DMCA notices, and creator assistance.',
+        descUr: 'ٹک ڈاؤنلوڈ پرو کی کسٹمر سپورٹ ٹیم سے فوری رابطہ کریں۔',
       },
       privacy: {
-        en: 'Privacy Policy - TikSave Pro',
-        ur: 'پرائیویسی پالیسی - ٹک سیو پرو',
-        descEn: 'TikSave Pro privacy policy detailing our zero-logging, anonymous usage, and data protection practices.',
-        descUr: 'ٹک سیو پرو کی پرائیویسی پالیسی اور ڈیٹا کے تحفظ کی تفصیلات۔',
+        en: 'Privacy Policy - TikDownload Pro',
+        ur: 'پرائیویسی پالیسی - ٹک ڈاؤنلوڈ پرو',
+        descEn: 'TikDownload Pro privacy policy detailing our zero-logging, anonymous usage, and data protection practices.',
+        descUr: 'ٹک ڈاؤنلوڈ پرو کی پرائیویسی پالیسی اور ڈیٹا کے تحفظ کی تفصیلات۔',
       },
       terms: {
-        en: 'Terms of Service - TikSave Pro',
-        ur: 'استعمال کی شرائط - ٹک سیو پرو',
-        descEn: 'Terms and conditions governing the use of TikSave Pro video downloader services and media utilities.',
-        descUr: 'ٹک سیو پرو کی شرائط و ضوابط۔',
+        en: 'Terms of Service - TikDownload Pro',
+        ur: 'استعمال کی شرائط - ٹک ڈاؤنلوڈ پرو',
+        descEn: 'Terms and conditions governing the use of TikDownload Pro video downloader services and media utilities.',
+        descUr: 'ٹک ڈاؤنلوڈ پرو کی شرائط و ضوابط۔',
       },
       dmca: {
-        en: 'DMCA Copyright Policy - TikSave Pro',
-        ur: 'کاپی رائٹ پالیسی - ٹک سیو پرو',
-        descEn: 'DMCA compliance and intellectual property copyright takedown request guidelines for TikSave Pro.',
-        descUr: 'ٹک سیو پرو کی ڈی ایم سی اے کاپی رائٹ پالیسی۔',
+        en: 'DMCA Copyright Policy - TikDownload Pro',
+        ur: 'کاپی رائٹ پالیسی - ٹک ڈاؤنلوڈ پرو',
+        descEn: 'DMCA compliance and intellectual property copyright takedown request guidelines for TikDownload Pro.',
+        descUr: 'ٹک ڈاؤنلوڈ پرو کی ڈی ایم سی اے کاپی رائٹ پالیسی۔',
       },
     };
 
@@ -172,7 +173,7 @@ export default function App() {
       {
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',
-        name: 'TikSave Pro',
+        name: 'TikDownload Pro',
         operatingSystem: 'All',
         applicationCategory: 'MultimediaApplication',
         offers: {
@@ -191,7 +192,7 @@ export default function App() {
             name: 'Do I need to create an account or sign up?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'No, absolutely not! TikSave Pro requires no registration, signup, or login. You can open the website anytime, paste your TikTok link, and download your video immediately.',
+              text: 'No, absolutely not! TikDownload Pro requires no registration, signup, or login. You can open the website anytime, paste your TikTok link, and download your video immediately.',
             },
           },
           {
@@ -199,7 +200,7 @@ export default function App() {
             name: 'How do I download TikTok videos without watermark on iPhone (iOS)?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'On your iPhone, open the TikTok app, tap "Share" and "Copy Link". Open Safari, visit TikSave Pro, paste the URL and tap Download. When prompted by Safari, tap "Download", and the video will be saved directly to your Files or Photos gallery.',
+              text: 'On your iPhone, open the TikTok app, tap "Share" and "Copy Link". Open Safari, visit TikDownload Pro, paste the URL and tap Download. When prompted by Safari, tap "Download", and the video will be saved directly to your Files or Photos gallery.',
             },
           },
           {
@@ -212,10 +213,10 @@ export default function App() {
           },
           {
             '@type': 'Question',
-            name: 'Is TikSave Pro completely free and safe to use?',
+            name: 'Is TikDownload Pro completely free and safe to use?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes! TikSave Pro is 100% free, virus-free, and SSL encrypted. We never ask for sensitive permissions, passwords, or personal data.',
+              text: 'Yes! TikDownload Pro is 100% free, virus-free, and SSL encrypted. We never ask for sensitive permissions, passwords, or personal data.',
             },
           },
           {
@@ -228,10 +229,10 @@ export default function App() {
           },
           {
             '@type': 'Question',
-            name: 'Does TikSave Pro store copies of downloaded videos or track users?',
+            name: 'Does TikDownload Pro store copies of downloaded videos or track users?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'No. TikSave Pro does not host, store, or archive any videos on its servers. All media is fetched directly from TikTok\'s public CDN and delivered straight to your device with zero tracking.',
+              text: 'No. TikDownload Pro does not host, store, or archive any videos on its servers. All media is fetched directly from TikTok\'s public CDN and delivered straight to your device with zero tracking.',
             },
           },
         ],
@@ -490,27 +491,42 @@ export default function App() {
         
         {/* VIEW 1: Standalone Privacy Policy Page */}
         {currentView === 'privacy' && (
-          <PrivacyPolicyPage onBack={() => navigateTo('home')} lang={lang} />
+          <div className="w-full">
+            <AdsterraBanner id="adsterra-banner-privacy" className="pt-4 pb-2" />
+            <PrivacyPolicyPage onBack={() => navigateTo('home')} lang={lang} />
+          </div>
         )}
 
         {/* VIEW 2: Standalone Terms of Service Page */}
         {currentView === 'terms' && (
-          <TermsOfServicePage onBack={() => navigateTo('home')} lang={lang} />
+          <div className="w-full">
+            <AdsterraBanner id="adsterra-banner-terms" className="pt-4 pb-2" />
+            <TermsOfServicePage onBack={() => navigateTo('home')} lang={lang} />
+          </div>
         )}
 
         {/* VIEW 3: Standalone DMCA & Copyright Policy Page */}
         {currentView === 'dmca' && (
-          <DmcaPolicyPage onBack={() => navigateTo('home')} lang={lang} />
+          <div className="w-full">
+            <AdsterraBanner id="adsterra-banner-dmca" className="pt-4 pb-2" />
+            <DmcaPolicyPage onBack={() => navigateTo('home')} lang={lang} />
+          </div>
         )}
 
         {/* VIEW 4: Standalone About Us Page */}
         {currentView === 'about' && (
-          <AboutUsPage onBack={() => navigateTo('home')} lang={lang} />
+          <div className="w-full">
+            <AdsterraBanner id="adsterra-banner-about" className="pt-4 pb-2" />
+            <AboutUsPage onBack={() => navigateTo('home')} lang={lang} />
+          </div>
         )}
 
         {/* VIEW 5: Standalone Contact Us Page */}
         {currentView === 'contact' && (
-          <ContactUsPage onBack={() => navigateTo('home')} lang={lang} />
+          <div className="w-full">
+            <AdsterraBanner id="adsterra-banner-contact" className="pt-4 pb-2" />
+            <ContactUsPage onBack={() => navigateTo('home')} lang={lang} />
+          </div>
         )}
 
         {/* VIEW 6 (DEFAULT): Main Video Downloader Tool */}
@@ -526,6 +542,9 @@ export default function App() {
               lang={lang}
               onSelectSample={handleSelectSample}
             />
+
+            {/* Real Adsterra 728x90 Banner Slot (Top Placement) */}
+            <AdsterraBanner id="adsterra-banner-top" className="my-4" />
 
             {/* Video Download Result Card */}
             {videoData ? (
@@ -567,7 +586,7 @@ export default function App() {
                         <div className="relative aspect-video rounded-xl overflow-hidden mb-2 bg-neutral-950">
                           <img
                             src={item.cover}
-                            alt={item.title}
+                            alt={item.title ? `Thumbnail for ${item.title}` : 'TikTok downloaded video history preview'}
                             referrerPolicy="no-referrer"
                             className="w-full h-full object-cover"
                           />
@@ -599,6 +618,9 @@ export default function App() {
 
             {/* FAQ Section */}
             <FaqSection lang={lang} />
+
+            {/* Rich SEO Original Text Content Block (Below the fold) */}
+            <SeoContentSection lang={lang} />
 
             {/* Real Adsterra 728x90 Banner Slot (Footer Placement above footer links) */}
             <AdsterraBanner id="adsterra-banner-footer" className="my-6" />

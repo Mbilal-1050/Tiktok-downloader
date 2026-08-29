@@ -48,8 +48,8 @@ export const DmcaPolicyPage: React.FC<DmcaPolicyPageProps> = ({ onBack, lang }) 
         </h1>
         <p className="text-sm sm:text-base text-neutral-400 leading-relaxed">
           {lang === 'ur'
-            ? 'TikSave Pro تمام کریئیٹرز اور کاپی رائٹ ہولڈرز کے قانونی حقوق کا مکمل احترام کرتا ہے۔ اگر آپ کی ملکیت والی ویڈیو بلا اجازت استعمال ہو رہی ہے، تو یہاں ڈی ایم سی اے نوٹس جمع کرائیں۔'
-            : 'TikSave Pro respects the intellectual property rights of others and expects its users to do the same. In accordance with the Digital Millennium Copyright Act of 1998, we respond expeditiously to valid copyright infringement notices.'}
+            ? 'TikDownload Pro تمام کریئیٹرز اور کاپی رائٹ ہولڈرز کے قانونی حقوق کا مکمل احترام کرتا ہے۔ اگر آپ کی ملکیت والی ویڈیو بلا اجازت استعمال ہو رہی ہے، تو یہاں ڈی ایم سی اے نوٹس جمع کرائیں۔'
+            : 'TikDownload Pro respects the intellectual property rights of others and expects its users to do the same. In accordance with the Digital Millennium Copyright Act of 1998, we respond expeditiously to valid copyright infringement notices.'}
         </p>
       </div>
 
@@ -63,7 +63,7 @@ export const DmcaPolicyPage: React.FC<DmcaPolicyPageProps> = ({ onBack, lang }) 
             No-Hosting Infrastructure Architecture Notice
           </h3>
           <p className="text-xs text-neutral-400 leading-relaxed">
-            Please note that <strong>TikSave Pro does NOT host, store, or archive any video or audio files on its web servers</strong>. All downloads and media streams are fetched directly from TikTok's official publicly accessible content delivery networks (CDNs).
+            Please note that <strong>TikDownload Pro does NOT host, store, or archive any video or audio files on its web servers</strong>. All downloads and media streams are fetched directly from TikTok's official publicly accessible content delivery networks (CDNs).
           </p>
           <p className="text-xs text-neutral-400 leading-relaxed">
             However, we maintain an active <strong>URL blocking mechanism</strong> that prevents our system from parsing or generating download links for any specific TikTok URLs that are reported by authorized copyright owners.
@@ -79,7 +79,7 @@ export const DmcaPolicyPage: React.FC<DmcaPolicyPageProps> = ({ onBack, lang }) 
           <ul className="list-decimal list-inside space-y-2 text-neutral-400 pl-2">
             <li>A physical or electronic signature of a person authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.</li>
             <li>Identification of the copyrighted work claimed to have been infringed (e.g., original publication link or registration number).</li>
-            <li>Identification of the material that is claimed to be infringing and the specific URL(s) to be blocked on TikSave Pro.</li>
+            <li>Identification of the material that is claimed to be infringing and the specific URL(s) to be blocked on TikDownload Pro.</li>
             <li>Information reasonably sufficient to permit our team to contact you, such as an address, telephone number, and email address.</li>
             <li>A statement that you have a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.</li>
             <li>A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.</li>
@@ -203,8 +203,8 @@ export const DmcaPolicyPage: React.FC<DmcaPolicyPageProps> = ({ onBack, lang }) 
             You may also transmit notices directly to our designated copyright officer:
           </p>
           <div className="p-4 rounded-2xl bg-neutral-900 border border-neutral-800 space-y-1 text-xs">
-            <p className="font-bold text-white">TikSave Pro Legal Compliance & DMCA Department</p>
-            <p className="text-neutral-400">Email: <span className="text-cyan-400 font-mono">dmca@tiksave.pro</span></p>
+            <p className="font-bold text-white">TikDownload Pro Legal Compliance & DMCA Department</p>
+            <p className="text-neutral-400">Email: <span className="text-cyan-400 font-mono">dmca@tikdownloadpro.online</span></p>
             <p className="text-neutral-400">Expected Action Timeline: <span className="text-emerald-400">Within 24 business hours</span></p>
           </div>
         </section>

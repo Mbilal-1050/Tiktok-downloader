@@ -18,8 +18,8 @@ export const HowToUse: React.FC<HowToUseProps> = ({ lang }) => {
     {
       num: '02',
       icon: Clipboard,
-      titleEn: 'Paste in TikSave Pro',
-      titleUr: 'لنک کو TikSave میں پیسٹ کریں',
+      titleEn: 'Paste in TikDownload Pro',
+      titleUr: 'لنک کو TikDownload میں پیسٹ کریں',
       descEn: 'Paste the copied URL into the search box above and click the "Download" button.',
       descUr: 'کاپی کیا ہوا لنک اوپر دیے گئے سرچ باکس میں پیسٹ کریں اور ڈاؤنلوڈ دبائیں۔',
     },

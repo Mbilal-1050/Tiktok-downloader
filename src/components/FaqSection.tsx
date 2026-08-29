@@ -12,14 +12,14 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ lang }) => {
     {
       qEn: 'Do I need to create an account or sign up?',
       qUr: 'کیا مجھے اکاؤنٹ بنانے یا سائن اپ کرنے کی ضرورت ہے؟',
-      aEn: 'No, absolutely not! TikSave Pro requires no registration, signup, or login. You can open the website anytime, paste your TikTok link, and download your video immediately.',
-      aUr: 'جی بالکل نہیں! TikSave Pro پر کسی بھی قسم کی رجسٹریشن، ای میل یا سائن اپ کی ضرورت نہیں ہے۔ بس لنک پیسٹ کریں اور فوری ڈاؤنلوڈ کریں۔',
+      aEn: 'No, absolutely not! TikDownload Pro requires no registration, signup, or login. You can open the website anytime, paste your TikTok link, and download your video immediately.',
+      aUr: 'جی بالکل نہیں! TikDownload Pro پر کسی بھی قسم کی رجسٹریشن، ای میل یا سائن اپ کی ضرورت نہیں ہے۔ بس لنک پیسٹ کریں اور فوری ڈاؤنلوڈ کریں۔',
     },
     {
       qEn: 'How do I download TikTok videos without watermark on iPhone (iOS)?',
       qUr: 'آئی فون (iOS) پر بغیر واٹر مارک ویڈیو کیسے ڈاؤنلوڈ کریں؟',
-      aEn: 'On your iPhone, open the TikTok app, tap "Share" and "Copy Link". Open Safari, visit TikSave Pro, paste the URL and tap Download. When prompted by Safari, tap "Download", and the video will be saved directly to your Files or Photos gallery.',
-      aUr: 'آئی فون میں ٹک ٹاک ویڈیو کا لنک کاپی کریں، سفاری براؤزر کھولیں اور TikSave پر پیسٹ کر کے ڈاؤنلوڈ کریں۔ فائل فوری آپ کی فوٹوز گیلری میں سیو ہو جائے گی۔',
+      aEn: 'On your iPhone, open the TikTok app, tap "Share" and "Copy Link". Open Safari, visit TikDownload Pro, paste the URL and tap Download. When prompted by Safari, tap "Download", and the video will be saved directly to your Files or Photos gallery.',
+      aUr: 'آئی فون میں ٹک ٹاک ویڈیو کا لنک کاپی کریں، سفاری براؤزر کھولیں اور TikDownload پر پیسٹ کر کے ڈاؤنلوڈ کریں۔ فائل فوری آپ کی فوٹوز گیلری میں سیو ہو جائے گی۔',
     },
     {
       qEn: 'Where are downloaded TikTok videos saved on my PC or Android?',
@@ -28,10 +28,10 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ lang }) => {
       aUr: 'ویڈیوز آپ کے موبائل کی گیلری یا کمپیوٹر کے "Downloads" فولڈر میں خود بخود محفوظ ہو جاتی ہیں۔',
     },
     {
-      qEn: 'Is TikSave Pro completely free and safe to use?',
-      qUr: 'کیا TikSave Pro مکمل طور پر محفوظ اور مفت ہے؟',
-      aEn: 'Yes! TikSave Pro is 100% free, virus-free, and SSL encrypted. We never ask for sensitive permissions, passwords, or personal data.',
-      aUr: 'جی ہاں! TikSave Pro مکمل طور پر مفت، محفوظ اور وائرس سے پاک ہے۔ ہم کبھی بھی کوئی پاس ورڈ یا ذاتی معلومات نہیں مانگتے۔',
+      qEn: 'Is TikDownload Pro completely free and safe to use?',
+      qUr: 'کیا TikDownload Pro مکمل طور پر محفوظ اور مفت ہے؟',
+      aEn: 'Yes! TikDownload Pro is 100% free, virus-free, and SSL encrypted. We never ask for sensitive permissions, passwords, or personal data.',
+      aUr: 'جی ہاں! TikDownload Pro مکمل طور پر مفت، محفوظ اور وائرس سے پاک ہے۔ ہم کبھی بھی کوئی پاس ورڈ یا ذاتی معلومات نہیں مانگتے۔',
     },
     {
       qEn: 'Can I download TikTok audio in MP3 format?',
@@ -40,10 +40,10 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ lang }) => {
       aUr: 'جی ہاں! ویڈیو سرچ کرنے کے بعد "Download Audio (MP3)" کا بٹن دبائیں اور اصل آڈیو ٹریک ڈاؤنلوڈ کریں۔',
     },
     {
-      qEn: 'Does TikSave Pro store copies of downloaded videos or track users?',
-      qUr: 'کیا TikSave Pro ڈاؤنلوڈ کی گئی ویڈیوز اپنے سرور پر محفوظ کرتا ہے؟',
-      aEn: 'No. TikSave Pro does not host, store, or archive any videos on its servers. All media is fetched directly from TikTok\'s public CDN and delivered straight to your device with zero tracking.',
-      aUr: 'ہرگز نہیں! TikSave Pro کسی بھی ویڈیو کو اپنے سرور پر محفوظ نہیں کرتا۔ تمام ویڈیوز براہِ راست ٹک ٹاک کے پبلک نیٹ ورک سے آپ کی ڈیوائس پر ڈاؤنلوڈ ہوتی ہیں۔',
+      qEn: 'Does TikDownload Pro store copies of downloaded videos or track users?',
+      qUr: 'کیا TikDownload Pro ڈاؤنلوڈ کی گئی ویڈیوز اپنے سرور پر محفوظ کرتا ہے؟',
+      aEn: 'No. TikDownload Pro does not host, store, or archive any videos on its servers. All media is fetched directly from TikTok\'s public CDN and delivered straight to your device with zero tracking.',
+      aUr: 'ہرگز نہیں! TikDownload Pro کسی بھی ویڈیو کو اپنے سرور پر محفوظ نہیں کرتا۔ تمام ویڈیوز براہِ راست ٹک ٹاک کے پبلک نیٹ ورک سے آپ کی ڈیوائس پر ڈاؤنلوڈ ہوتی ہیں۔',
     },
   ];
 

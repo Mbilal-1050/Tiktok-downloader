@@ -23,9 +23,14 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
         {/* Brand Logo */}
-        <button
-          onClick={() => onNavigate('home')}
+        <a
+          href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            onNavigate('home');
+          }}
           className="flex items-center gap-2.5 group text-left cursor-pointer"
+          title="TikDownload Pro - Free TikTok Video Downloader"
         >
           <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 via-purple-600 to-cyan-400 p-[2px] shadow-lg shadow-rose-500/20 group-hover:shadow-rose-500/40 transition-all duration-300">
             <div className="w-full h-full bg-neutral-950 rounded-[10px] flex items-center justify-center">
@@ -35,7 +40,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="flex flex-col">
             <div className="flex items-center gap-1.5">
               <span className="font-display text-xl font-extrabold tracking-tight text-white">
-                Tik<span className="text-rose-500">Save</span>
+                Tik<span className="text-rose-500">Download</span>
               </span>
               <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-gradient-to-r from-rose-500 to-cyan-500 text-white shadow-sm">
                 PRO
@@ -45,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({
               {lang === 'ur' ? 'بغیر واٹر مارک ٹک ٹاک ڈاؤنلوڈر' : 'TikTok HD Downloader'}
             </span>
           </div>
-        </button>
+        </a>
 
         {/* Action Controls & Navigation */}
         <div className="flex items-center gap-2 sm:gap-3">
