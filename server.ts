@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
 import { createServer as createViteServer } from 'vite';
-import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
+import { extractUrl, fetchTikTokData, getGeminiClient, SAMPLE_VIDEOS } from './src/server-utils/tiktok.js';
 
 dotenv.config();
 
@@ -11,431 +11,44 @@ const PORT = 3000;
 
 app.use(express.json());
 
-// Initialize Gemini lazily
-let geminiClient: GoogleGenAI | null = null;
-function getGeminiClient(): GoogleGenAI | null {
-  if (!geminiClient && process.env.GEMINI_API_KEY) {
-    geminiClient = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-  }
-  return geminiClient;
-}
+// 1. API: Download / Parse TikTok URL (supports /api/download & /api/resolve via POST or GET)
+const handleResolveRequest = async (req: Request, res: Response): Promise<void> => {
+  const requestUrl = (req.body?.url || req.query?.url || '') as string;
+  console.log(`[API REQUEST] ${req.method} ${req.path} received url: "${requestUrl}"`);
 
-// Curated sample TikTok videos for immediate testing
-const SAMPLE_VIDEOS = [
-  {
-    id: 'sample_nature_721',
-    title: 'Satisfying sunset in Switzerland Alps 🏔️✨ #nature #travel #peaceful #fyp',
-    cover: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&auto=format&fit=crop&q=80',
-    playUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-    wmPlayUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-    hdPlayUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-    musicUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-    musicInfo: {
-      title: 'Original Sound - Alpine Dreams',
-      author: 'SoundVibes Music',
-      play_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-      duration: 15,
-    },
-    author: {
-      id: 'swiss_explorer',
-      unique_id: 'swiss.explorer.official',
-      nickname: 'Swiss Explorer 🏔️',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
-    },
-    stats: {
-      views: 2840000,
-      likes: 412900,
-      comments: 3200,
-      shares: 48900,
-      downloads: 85200,
-    },
-    duration: 15,
-    isImages: false,
-    size: 6420000,
-    sourceUrl: 'https://www.tiktok.com/@swiss.explorer/video/7289123456789012345',
-  },
-  {
-    id: 'sample_tech_ai',
-    title: 'Top 3 insane AI tools you must try in 2026! 🚀🤖 #ai #technology #tools #viral',
-    cover: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80',
-    playUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4',
-    wmPlayUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4',
-    hdPlayUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4',
-    musicUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4',
-    musicInfo: {
-      title: 'Cyberpunk Beat - Tech Trend',
-      author: 'CyberBeats',
-      play_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4',
-      duration: 18,
-    },
-    author: {
-      id: 'tech_insider',
-      unique_id: 'techinsider_ai',
-      nickname: 'Tech Insider AI 🤖',
-      avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80',
-    },
-    stats: {
-      views: 1520000,
-      likes: 198400,
-      comments: 1840,
-      shares: 31200,
-      downloads: 42100,
-    },
-    duration: 18,
-    isImages: false,
-    size: 8150000,
-    sourceUrl: 'https://www.tiktok.com/@techinsider/video/7391234567890123456',
-  },
-  {
-    id: 'sample_cooking_recipe',
-    title: 'Crispy Garlic Butter Potato Bites 🧄🥔 Recipe in caption! #foodtiktok #recipe #crispy',
-    cover: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop&q=80',
-    playUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyBlazes.mp4',
-    wmPlayUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyBlazes.mp4',
-    hdPlayUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyBlazes.mp4',
-    musicUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyBlazes.mp4',
-    musicInfo: {
-      title: 'Aesthetic Kitchen Vibe - LoFi Cooking',
-      author: 'Chef Beats',
-      play_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyBlazes.mp4',
-      duration: 22,
-    },
-    author: {
-      id: 'crispy_kitchen',
-      unique_id: 'crispykitchen.recipes',
-      nickname: 'Crispy Kitchen 👨‍🍳',
-      avatar: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=200&auto=format&fit=crop&q=80',
-    },
-    stats: {
-      views: 4350000,
-      likes: 672000,
-      comments: 5490,
-      shares: 92400,
-      downloads: 142000,
-    },
-    duration: 22,
-    isImages: false,
-    size: 9800000,
-    sourceUrl: 'https://www.tiktok.com/@crispykitchen/video/7388765432109876543',
-  },
-];
-
-// Helper: Extract valid URL from input text
-function extractUrl(text: string): string | null {
-  if (!text) return null;
-  const match = text.match(/https?:\/\/(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(?:\/[^\s]*)?/i);
-  return match ? match[0] : null;
-}
-
-// Helper: Safely parse JSON from fetch response without throwing syntax error on HTML
-async function safeFetchJson(url: string, options?: RequestInit): Promise<{ success: boolean; data?: any; status: number; text?: string }> {
   try {
-    const res = await fetch(url, options);
-    const text = await res.text();
-    try {
-      const parsed = JSON.parse(text);
-      return { success: res.ok, data: parsed, status: res.status };
-    } catch {
-      return { success: false, status: res.status, text };
-    }
-  } catch (err: any) {
-    return { success: false, status: 0, text: err?.message };
-  }
-}
-
-// Fetch TikTok Video Data with multi-tier fallback resolvers (TikWM, TikTok oEmbed, Direct API)
-async function fetchTikTokData(tiktokUrl: string) {
-  const formatMediaUrl = (urlPath?: string, baseUrl = 'https://www.tikwm.com') => {
-    if (!urlPath) return '';
-    if (urlPath.startsWith('http')) return urlPath;
-    return baseUrl + urlPath;
-  };
-
-  // Tier 1: TikWM POST API
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
-
-    const postData = new URLSearchParams();
-    postData.append('url', tiktokUrl);
-    postData.append('hd', '1');
-
-    const result = await safeFetchJson('https://www.tikwm.com/api/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
-        'Accept': 'application/json, text/javascript, */*; q=0.01',
-        'X-Requested-With': 'XMLHttpRequest',
-      },
-      body: postData.toString(),
-      signal: controller.signal,
-    });
-
-    clearTimeout(timeoutId);
-
-    if (result.success && result.data && result.data.code === 0 && result.data.data) {
-      const d = result.data.data;
-      const isImages = Array.isArray(d.images) && d.images.length > 0;
-      const playUrl = formatMediaUrl(d.play);
-      const hdPlayUrl = formatMediaUrl(d.hdplay || d.play);
-      const wmPlayUrl = formatMediaUrl(d.wmplay || d.play);
-      const musicUrl = formatMediaUrl(d.music);
-      const cover = formatMediaUrl(d.cover);
-      const images = isImages ? d.images.map((img: string) => formatMediaUrl(img)) : undefined;
-
-      return {
-        id: String(d.id || Date.now()),
-        title: d.title || 'TikTok Video',
-        cover: cover || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80',
-        playUrl: playUrl || hdPlayUrl,
-        wmPlayUrl: wmPlayUrl || playUrl,
-        hdPlayUrl: hdPlayUrl || playUrl,
-        musicUrl: musicUrl || undefined,
-        musicInfo: {
-          title: d.music_info?.title || d.music || 'Original TikTok Audio',
-          author: d.music_info?.author || d.author?.nickname || 'TikTok Creator',
-          play_url: musicUrl,
-          duration: d.music_info?.duration || d.duration || 15,
-        },
-        author: {
-          id: String(d.author?.id || 'creator'),
-          unique_id: d.author?.unique_id || 'tiktok_creator',
-          nickname: d.author?.nickname || 'TikTok User',
-          avatar: formatMediaUrl(d.author?.avatar) || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
-        },
-        stats: {
-          views: d.play_count || Math.floor(Math.random() * 500000) + 50000,
-          likes: d.digg_count || Math.floor(Math.random() * 80000) + 5000,
-          comments: d.comment_count || Math.floor(Math.random() * 3000) + 100,
-          shares: d.share_count || Math.floor(Math.random() * 15000) + 500,
-          downloads: d.download_count || Math.floor(Math.random() * 20000) + 1000,
-        },
-        duration: d.duration || 15,
-        isImages: Boolean(isImages),
-        images: images,
-        size: d.size || d.hd_size || 5242880,
-        createTime: d.create_time || Date.now(),
-        sourceUrl: tiktokUrl,
-      };
-    }
-  } catch (err: any) {
-    console.warn('TikWM Tier 1 warning:', err?.message);
-  }
-
-  // Tier 2: TikWM GET API
-  try {
-    const getUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(tiktokUrl)}&hd=1`;
-    const result2 = await safeFetchJson(getUrl, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15',
-      },
-    });
-
-    if (result2.success && result2.data && result2.data.code === 0 && result2.data.data) {
-      const d = result2.data.data;
-      const isImages = Array.isArray(d.images) && d.images.length > 0;
-      return {
-        id: String(d.id || Date.now()),
-        title: d.title || 'TikTok Video',
-        cover: formatMediaUrl(d.cover),
-        playUrl: formatMediaUrl(d.play),
-        wmPlayUrl: formatMediaUrl(d.wmplay),
-        hdPlayUrl: formatMediaUrl(d.hdplay || d.play),
-        musicUrl: formatMediaUrl(d.music),
-        musicInfo: {
-          title: d.music_info?.title || 'Original TikTok Audio',
-          author: d.music_info?.author || d.author?.nickname || 'TikTok Creator',
-          play_url: formatMediaUrl(d.music),
-          duration: d.music_info?.duration || d.duration || 15,
-        },
-        author: {
-          id: String(d.author?.id || 'creator'),
-          unique_id: d.author?.unique_id || 'creator',
-          nickname: d.author?.nickname || 'TikTok Creator',
-          avatar: formatMediaUrl(d.author?.avatar),
-        },
-        stats: {
-          views: d.play_count || 120000,
-          likes: d.digg_count || 15000,
-          comments: d.comment_count || 850,
-          shares: d.share_count || 3200,
-          downloads: d.download_count || 4500,
-        },
-        duration: d.duration || 15,
-        isImages: Boolean(isImages),
-        images: d.images ? d.images.map((img: string) => formatMediaUrl(img)) : undefined,
-        size: d.size || 6000000,
-        sourceUrl: tiktokUrl,
-      };
-    }
-  } catch (err: any) {
-    console.warn('TikWM Tier 2 warning:', err?.message);
-  }
-
-  // Tier 3: Official TikTok oEmbed API (Provides real creator metadata and thumbnail even if scraping is rate-limited)
-  try {
-    const oembedUrl = `https://www.tiktok.com/oembed?url=${encodeURIComponent(tiktokUrl)}`;
-    const oembedResult = await safeFetchJson(oembedUrl, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
-      },
-    });
-
-    if (oembedResult.success && oembedResult.data && oembedResult.data.title) {
-      const od = oembedResult.data;
-      const videoIdMatch = tiktokUrl.match(/\/video\/(\d+)/);
-      const videoId = videoIdMatch ? videoIdMatch[1] : String(Date.now());
-      const authorMatch = tiktokUrl.match(/@([a-zA-Z0-9_.]+)/);
-      const authorHandle = authorMatch ? authorMatch[1] : (od.author_name || 'tiktok_creator');
-
-      return {
-        id: videoId,
-        title: od.title || 'TikTok Video (No Watermark)',
-        cover: od.thumbnail_url || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80',
-        playUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-        wmPlayUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-        hdPlayUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-        musicUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-        musicInfo: {
-          title: 'Original TikTok Audio',
-          author: od.author_name || 'TikTok Creator',
-          play_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-          duration: 15,
-        },
-        author: {
-          id: authorHandle,
-          unique_id: authorHandle,
-          nickname: od.author_name || 'TikTok Creator',
-          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
-        },
-        stats: {
-          views: 350000,
-          likes: 42000,
-          comments: 980,
-          shares: 5400,
-          downloads: 8900,
-        },
-        duration: 15,
-        isImages: false,
-        size: 5800000,
-        sourceUrl: tiktokUrl,
-      };
-    }
-  } catch (err: any) {
-    console.warn('TikTok oEmbed Tier 3 warning:', err?.message);
-  }
-
-  // Tier 4: Universal High-Compatibility Mode (URL Parser & Formatter)
-  const videoIdMatch = tiktokUrl.match(/\/video\/(\d+)/);
-  const videoId = videoIdMatch ? videoIdMatch[1] : String(Date.now());
-  const authorMatch = tiktokUrl.match(/@([a-zA-Z0-9_.]+)/);
-  const authorHandle = authorMatch ? authorMatch[1] : 'creator';
-
-  return {
-    id: videoId,
-    title: `Trending TikTok Video by @${authorHandle}`,
-    cover: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&auto=format&fit=crop&q=80',
-    playUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-    wmPlayUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-    hdPlayUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-    musicUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-    musicInfo: {
-      title: `Sound by @${authorHandle}`,
-      author: `@${authorHandle}`,
-      play_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-      duration: 15,
-    },
-    author: {
-      id: authorHandle,
-      unique_id: authorHandle,
-      nickname: `@${authorHandle}`,
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
-    },
-    stats: {
-      views: 780000,
-      likes: 95000,
-      comments: 1900,
-      shares: 12400,
-      downloads: 21000,
-    },
-    duration: 15,
-    isImages: false,
-    size: 5400000,
-    sourceUrl: tiktokUrl,
-  };
-}
-
-// 1. API: Download / Parse TikTok URL
-app.post('/api/download', async (req: Request, res: Response): Promise<void> => {
-  try {
-    const { url } = req.body;
-    if (!url || typeof url !== 'string') {
-      res.status(400).json({ error: 'Please provide a valid TikTok video URL' });
+    if (!requestUrl || typeof requestUrl !== 'string') {
+      res.status(400).json({ success: false, error: 'Please provide a valid TikTok video URL' });
       return;
     }
 
-    const cleanUrl = extractUrl(url.trim());
+    const cleanUrl = extractUrl(requestUrl.trim());
     if (!cleanUrl) {
-      res.status(400).json({ error: 'No valid URL detected in input' });
+      res.status(400).json({ success: false, error: 'No valid URL detected in input' });
       return;
     }
 
     // Check if it's one of our sample videos or demo request
     if (cleanUrl.includes('sample_') || cleanUrl.includes('sample.tiktok')) {
       const match = SAMPLE_VIDEOS.find(s => cleanUrl.includes(s.id)) || SAMPLE_VIDEOS[0];
+      console.log(`[API RESOLVED] Sample video matched: ${match.id}`);
       res.json({ success: true, data: match });
       return;
     }
 
-    try {
-      const videoData = await fetchTikTokData(cleanUrl);
-      res.json({ success: true, data: videoData });
-    } catch (apiError: any) {
-      console.error('Fetch error:', apiError);
-      
-      // If TikTok API is blocked or rate limited, gracefully generate smart fallback so user can still see and test
-      const videoId = cleanUrl.split('/').filter(Boolean).pop()?.split('?')[0] || String(Date.now());
-      const fallbackData = {
-        id: videoId,
-        title: 'Trending TikTok Video - HD Ready',
-        cover: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&auto=format&fit=crop&q=80',
-        playUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-        wmPlayUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-        hdPlayUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-        musicUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-        musicInfo: {
-          title: 'Viral TikTok Sound 2026',
-          author: 'Trending Sounds',
-          play_url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-        },
-        author: {
-          id: 'viral_creator',
-          unique_id: 'tiktok_star',
-          nickname: 'Trending Creator ⭐',
-          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
-        },
-        stats: {
-          views: 890000,
-          likes: 125000,
-          comments: 2400,
-          shares: 18900,
-          downloads: 32000,
-        },
-        duration: 16,
-        isImages: false,
-        size: 5400000,
-        sourceUrl: cleanUrl,
-        isFallbackNotice: 'Notice: Fetched in universal compatibility mode.',
-      };
-
-      res.json({ success: true, data: fallbackData });
-    }
+    const videoData = await fetchTikTokData(cleanUrl);
+    console.log(`[API SUCCESS] Resolved video: "${videoData.title}" by @${videoData.author?.unique_id}`);
+    res.json({ success: true, data: videoData });
   } catch (err: any) {
-    console.error('Server /api/download error:', err);
-    res.status(500).json({ error: err.message || 'Internal server error while processing TikTok URL' });
+    console.error('[API ERROR] /api/download error:', err);
+    res.status(500).json({ success: false, error: err.message || 'Internal server error while processing TikTok URL' });
   }
-});
+};
+
+app.post('/api/download', handleResolveRequest);
+app.get('/api/download', handleResolveRequest);
+app.post('/api/resolve', handleResolveRequest);
+app.get('/api/resolve', handleResolveRequest);
 
 // 2. API: Proxy / Direct Stream Download (Forces browser download dialog without CORS issues)
 app.get('/api/stream', async (req: Request, res: Response): Promise<void> => {
