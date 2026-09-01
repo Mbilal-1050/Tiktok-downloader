@@ -12,6 +12,7 @@ import { Footer } from './components/Footer';
 import { AdSettingsModal } from './components/AdSettingsModal';
 import { BatchDownloaderModal } from './components/BatchDownloaderModal';
 import { TrendingExplore } from './components/TrendingExplore';
+import { MonetagAdManager } from './components/MonetagAdManager';
 
 // Standalone Full Legal & Informational Pages
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
@@ -473,7 +474,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col selection:bg-rose-500 selection:text-white">
-      
+      {/* Monetag In-Page Push Non-Intrusive Corner Positioner */}
+      <MonetagAdManager />
+
       {/* Navigation Header (Clean, professional, with no visitor ad calculators) */}
       <Header
         currentView={currentView}
@@ -485,7 +488,7 @@ export default function App() {
       />
 
       {/* Real Adsterra 728x90 Banner Slot (Top Leaderboard) */}
-      <AdsterraBanner id="adsterra-banner-top" className="mt-2" />
+      <AdsterraBanner id="adsterra-banner-header" className="mt-2" />
 
       {/* Main Content Area */}
       <main className="flex-1">

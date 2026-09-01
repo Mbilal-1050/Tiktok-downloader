@@ -44,3 +44,61 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+/* Monetag & Third-Party In-Page Push (IPP) Corner Constraints */
+/* Ensure floating push notifications never push document flow or block hero content */
+body > div:not(#root)[style*="fixed"],
+body > div:not(#root)[style*="absolute"],
+body > div[class*="widget"],
+body > div[class*="notification"],
+body > div[class*="ipp"],
+body > div[class*="monetag"],
+body > div[id*="monetag"],
+body > div[id*="widget"] {
+  position: fixed !important;
+  top: auto !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  left: auto !important;
+  max-width: min(380px, calc(100vw - 32px)) !important;
+  z-index: 45 !important;
+  margin: 0 !important;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  transition: transform 0.2s ease, opacity 0.2s ease !important;
+}
+
+/* Secondary In-Page Push banner stacking offset when two Monetag zones fire simultaneously */
+body > div:not(#root)[style*="fixed"]:nth-of-type(2),
+body > div:not(#root)[class*="widget"]:nth-of-type(2),
+body > div:not(#root)[class*="notification"]:nth-of-type(2) {
+  bottom: 125px !important;
+}
+
+body > div:not(#root)[style*="fixed"]:nth-of-type(3),
+body > div:not(#root)[class*="widget"]:nth-of-type(3),
+body > div:not(#root)[class*="notification"]:nth-of-type(3) {
+  bottom: 230px !important;
+}
+
+@media (max-width: 640px) {
+  body > div:not(#root)[style*="fixed"],
+  body > div:not(#root)[style*="absolute"],
+  body > div[class*="widget"],
+  body > div[class*="notification"],
+  body > div[class*="ipp"] {
+    bottom: 16px !important;
+    right: 12px !important;
+    left: 12px !important;
+    max-width: calc(100vw - 24px) !important;
+    top: auto !important;
+  }
+
+  body > div:not(#root)[style*="fixed"]:nth-of-type(2),
+  body > div:not(#root)[class*="widget"]:nth-of-type(2),
+  body > div:not(#root)[class*="notification"]:nth-of-type(2) {
+    bottom: 110px !important;
+  }
+}
+
